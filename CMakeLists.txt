@@ -1,7 +1,7 @@
 ﻿#*! ***********************************************************************************************
 #
 # \file        CMakeLists.txt
-# \brief       crashpad 主 CMakeLists。
+# \brief       sentrypad 主 CMakeLists。
 #
 # \version     0.1
 # \date        2019/4/26
@@ -83,7 +83,7 @@ add_library(sentrypad STATIC
     "src/vendor/mpack.h"
     "src/vendor/mpack.c"
 )
-target_compile_definitions(sentrypad PRIVATE "SENTRY_BUILD_STATIC" "SENTRY_CRASHPAD")
+target_compile_definitions(sentrypad PRIVATE "SENTRY_BUILD_STATIC" "SENTRY_CRASHPAD" "NOMINMAX")
 target_include_directories(sentrypad PRIVATE "include")
 target_link_libraries(sentrypad PRIVATE Crashpad)
 set_target_properties(sentrypad PROPERTIES PUBLIC_HEADER "include/sentry.h")
