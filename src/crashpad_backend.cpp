@@ -37,7 +37,10 @@ int init(const SentryInternalOptions *sentry_internal_options) {
 
     /* Optional arguments to pass to the handler */
     std::vector<std::string> arguments;
+#ifdef _DEBUG
     arguments.emplace_back("--no-rate-limit");
+#endif
+    arguments.emplace_back("--no-upload-gzip");
 
     CrashpadClient client;
     bool success = client.StartHandlerWithAttachments(

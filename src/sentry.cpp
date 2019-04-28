@@ -410,6 +410,7 @@ int sentry_init(const sentry_options_t *options) {
 }
 
 void sentry_options_init(sentry_options_t *options) {
+    memset(options, 0, sizeof(*options));
 }
 
 int serialize_breadcrumb(sentry_breadcrumb_t *breadcrumb,
