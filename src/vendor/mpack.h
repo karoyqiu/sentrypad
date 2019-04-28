@@ -2465,6 +2465,15 @@ void mpack_writer_init_growable(mpack_writer_t* writer, char** data, size_t* siz
 void mpack_writer_init_error(mpack_writer_t* writer, mpack_error_t error);
 
 #if MPACK_STDIO
+
+#ifdef _WIN32
+void mpack_writer_init_filename(mpack_writer_t* writer, const wchar_t* filename);
+
+MPACK_INLINE void mpack_writer_init_file(mpack_writer_t *writer,
+                                         const wchar_t *filename) {
+    mpack_writer_init_filename(writer, filename);
+}
+#else
 /**
  * Initializes an MPack writer that writes to a file.
  *
@@ -2481,6 +2490,7 @@ void mpack_writer_init_filename(mpack_writer_t* writer, const char* filename);
 MPACK_INLINE void mpack_writer_init_file(mpack_writer_t* writer, const char* filename) {
     mpack_writer_init_filename(writer, filename);
 }
+#endif
 
 /**
  * Initializes an MPack writer that writes to a libc FILE. This can be used to

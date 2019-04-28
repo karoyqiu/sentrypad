@@ -59,10 +59,17 @@ typedef struct sentry_options_s {
     const char *dist;
     int debug;
     const char **attachments;
+#ifdef _WIN32
+    /* Crashpad */
+    const wchar_t *handler_path;
+    /* The base working directory */
+    const wchar_t *database_path;
+#else
     /* Crashpad */
     const char *handler_path;
     /* The base working directory */
     const char *database_path;
+#endif
 } sentry_options_t;
 
 /*

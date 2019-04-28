@@ -30,16 +30,14 @@ int init(const SentryInternalOptions *sentry_internal_options) {
     std::map<std::string, base::FilePath> fileAttachments =
         std::map<std::string, base::FilePath>();
 
-    std::map<std::string, std::string>::const_iterator iter;
-    for (iter = sentry_internal_options->attachments.begin();
-         iter != sentry_internal_options->attachments.end(); ++iter) {
-        fileAttachments.insert(
-            std::make_pair(iter->first, base::FilePath(iter->second)));
+    for (const auto &attachment : sentry_internal_options->attachments) {
+        fileAttachments.insert(std::make_pair(
+            attachment.first, base::FilePath(attachment.second)));
     }
 
     /* Optional arguments to pass to the handler */
     std::vector<std::string> arguments;
-    arguments.push_back("--no-rate-limit");
+    arguments.emplace_back("--no-rate-limit");
 
     CrashpadClient client;
     bool success = client.StartHandlerWithAttachments(
