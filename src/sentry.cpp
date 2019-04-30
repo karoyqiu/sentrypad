@@ -535,21 +535,23 @@ int sentry_remove_transaction() {
 
 int sentry_set_user(const sentry_user_t *user) {
     BEGIN_MODIFY_EVENT;
-    sentry_user_t *new_user = (sentry_user_t *)malloc(sizeof(sentry_user_t));
+    //sentry_user_t *new_user = (sentry_user_t *)malloc(sizeof(sentry_user_t));
     sentry_event.user.clear();
 
-    if (user->id) {
-        sentry_event.user.insert(std::make_pair("id", user->id));
-    }
-    if (user->username) {
-        sentry_event.user.insert(std::make_pair("username", user->username));
-    }
-    if (user->email) {
-        sentry_event.user.insert(std::make_pair("email", user->email));
-    }
-    if (user->ip_address) {
-        sentry_event.user.insert(
-            std::make_pair("ip_address", user->ip_address));
+    if (user != nullptr) {
+        if (user->id) {
+            sentry_event.user.insert(std::make_pair("id", user->id));
+        }
+        if (user->username) {
+            sentry_event.user.insert(std::make_pair("username", user->username));
+        }
+        if (user->email) {
+            sentry_event.user.insert(std::make_pair("email", user->email));
+        }
+        if (user->ip_address) {
+            sentry_event.user.insert(
+                std::make_pair("ip_address", user->ip_address));
+        }
     }
 
     END_MODIFY_EVENT;

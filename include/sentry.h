@@ -79,7 +79,7 @@ typedef struct sentry_breadcrumb_s {
     const char *message;
     const char *type;
     const char *category;
-    const enum sentry_level_t level;
+    enum sentry_level_t level;
 } sentry_breadcrumb_t;
 
 /*
