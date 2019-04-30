@@ -40,7 +40,6 @@ int init(const SentryInternalOptions *sentry_internal_options) {
 #ifdef _DEBUG
     arguments.emplace_back("--no-rate-limit");
 #endif
-    arguments.emplace_back("--no-upload-gzip");
 
     CrashpadClient client;
     bool success = client.StartHandlerWithAttachments(
