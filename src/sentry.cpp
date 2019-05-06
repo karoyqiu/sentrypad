@@ -36,6 +36,10 @@ static inline std::wstring utf8ToWString(const char *s) {
 }
 #endif
 
+int serialize_breadcrumb(sentry_breadcrumb_t *breadcrumb,
+                         char **data,
+                         size_t *size);
+
 struct SentryDsn {
     const char *scheme;
     const char *public_key;
@@ -410,7 +414,7 @@ int sentry_init(const sentry_options_t *options) {
         return err;
     }
 
-    sentry_breadcrumb_t bc = {};
+    sentry_breadcrumb_t breadcrumb = {};
     char *data = nullptr;
     size_t size = 0;
     err = serialize_breadcrumb(breadcrumb, &data, &size);
