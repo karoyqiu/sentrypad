@@ -406,6 +406,36 @@ int sentry_init(const sentry_options_t *options) {
     sentry_internal_options.attachments = attachments;
     err = init(&sentry_internal_options);
 
+    if (err != 0) {
+        return err;
+    }
+
+    sentry_breadcrumb_t bc = {};
+    char *data = nullptr;
+    size_t size = 0;
+    err = serialize_breadcrumb(breadcrumb, &data, &size);
+
+    if (err != 0) {
+        return err;
+    }
+
+#ifdef _WIN32
+    FILE *file = _wfopen((sentry_internal_options.run_path + BREADCRUMB_FILE_2).c_str(), L"w");
+#else
+    FILE *file = fopen((sentry_internal_options.run_path + BREADCRUMB_FILE_2).c_str(), "w");
+#endif
+
+    if (file != NULL) {
+        /* consider error handling here */
+        EINTR_RETRY(fwrite(data, 1, size, file));
+        fclose(file);
+    } else {
+        SENTRY_PRINT_ERROR_ARGS("Failed to open breadcrumb file %s\n",
+                                BREADCRUMB_FILE_2);
+    }
+
+    free(data);
+
     return 0;
 }
 

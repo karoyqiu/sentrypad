@@ -37,7 +37,7 @@ int init(const SentryInternalOptions *sentry_internal_options) {
 
     /* Optional arguments to pass to the handler */
     std::vector<std::string> arguments {
-        "--no-upload-gzip"
+        //"--no-upload-gzip"
     };
 #ifdef _DEBUG
     arguments.emplace_back("--no-rate-limit");
