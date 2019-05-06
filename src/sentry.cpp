@@ -417,7 +417,7 @@ int sentry_init(const sentry_options_t *options) {
     sentry_breadcrumb_t breadcrumb = {};
     char *data = nullptr;
     size_t size = 0;
-    err = serialize_breadcrumb(breadcrumb, &data, &size);
+    err = serialize_breadcrumb(&breadcrumb, &data, &size);
 
     if (err != 0) {
         return err;
