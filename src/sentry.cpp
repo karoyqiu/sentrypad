@@ -415,6 +415,9 @@ int sentry_init(const sentry_options_t *options) {
     }
 
     sentry_breadcrumb_t breadcrumb = {};
+    breadcrumb.category = "default";
+    breadcrumb.message = "Dummy";
+
     char *data = nullptr;
     size_t size = 0;
     err = serialize_breadcrumb(&breadcrumb, &data, &size);

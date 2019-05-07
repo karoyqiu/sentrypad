@@ -9,6 +9,10 @@
 #endif
 #include "internal.hpp"
 
+#ifdef _WIN32
+#define SENTRY_PRINT(std, message)
+#define SENTRY_PRINT_ARGS(std, message, args)
+#else
 #define SENTRY_PRINT(std, message)                               \
     do {                                                         \
         if (sentry_get_options()->debug) {                       \
@@ -28,6 +32,7 @@
             }                                                    \
         }                                                        \
     } while (0)
+#endif
 
 #define SENTRY_PRINT_DEBUG(message) SENTRY_PRINT(stdout, message)
 
